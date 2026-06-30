@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============ PRIMARY SEO ============ -->
+  <title>Confusion Matrix Calculator — Generate, Visualize & Export Confusion Matrices Online</title>
+  <meta name="description"
+    content="Free online confusion matrix calculator and generator. Build an NxN confusion matrix from class count, sample size and target accuracy. Instantly get precision, recall, specificity, F1-score and a heatmap — export as Python, NumPy or CSV." />
+  <meta name="keywords"
+    content="confusion matrix calculator, confusion matrix generator, precision recall calculator, F1 score calculator, machine learning metrics tool, classification metrics, confusion matrix online, accuracy precision recall specificity, ML evaluation tool" />
+  <meta name="author" content="Confusion Matrix Bench" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://confusion-matrix-bench.example.com/" />
+
+  <!-- ============ OPEN GRAPH ============ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Confusion Matrix Calculator — Generate, Visualize & Export Confusion Matrices" />
+  <meta property="og:description"
+    content="Generate realistic NxN confusion matrices from class count, sample size and target accuracy. Get precision, recall, specificity, F1-score, heatmaps and one-click exports." />
+  <meta property="og:url" content="https://confusion-matrix-bench.example.com/" />
+  <meta property="og:site_name" content="Confusion Matrix Bench" />
+  <meta property="og:image" content="/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- ============ TWITTER CARD ============ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Confusion Matrix Calculator — Generate, Visualize & Export" />
+  <meta name="twitter:description"
+    content="Build an NxN confusion matrix from class count, samples and target accuracy. Precision, recall, specificity, F1, heatmap and exports — all in your browser." />
+  <meta name="twitter:image" content="/assets/og-image.png" />
+
+  <!-- ============ FAVICON ============ -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231F7A5C'/%3E%3Ctext x='50' y='66' font-size='54' text-anchor='middle' fill='white' font-family='Georgia,serif'%3E⌗%3C/text%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#1F7A5C" />
+
+  <!-- ============ STRUCTURED DATA (JSON-LD) ============ -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Confusion Matrix Bench",
+  "applicationCategory": "DataVisualizationApplication",
+  "operatingSystem": "Any (runs in browser)",
+  "description": "Free online confusion matrix calculator that generates NxN confusion matrices from class count, sample size and target accuracy, and computes precision, recall, specificity and F1-score per class.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Generate confusion matrices for balanced, imbalanced or custom class distributions",
+    "Compute precision, recall, specificity and F1-score per class",
+    "Heatmap and bar chart visualization",
+    "Export as Python array, NumPy array or CSV",
+    "Editable matrix cells with live metric recalculation"
+  ]
+}
+</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Confusion Matrix Bench", "item": "https://confusion-matrix-bench.example.com/" }
+  ]
+}
+</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a confusion matrix?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A confusion matrix is an N by N table that compares actual classes against predicted classes for a classification model, showing correct predictions on the diagonal and misclassifications off the diagonal." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is precision calculated from a confusion matrix?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Precision for a class equals true positives divided by the sum of true positives and false positives: TP / (TP + FP)." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is recall (sensitivity) calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Recall equals true positives divided by the sum of true positives and false negatives: TP / (TP + FN)." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the F1-score derived?",
+      "acceptedAnswer": { "@type": "Answer", "text": "F1-score is the harmonic mean of precision and recall: 2 times precision times recall, divided by precision plus recall." }
+    }
+  ]
+}
+</script>
+
+  <!-- ============ TAILWIND (CDN, no build step) ============ -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind.config.js"></script>
+
+  <!-- ============ FONTS ============ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- ============ CUSTOM STYLES ============ -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 text-slate-900 antialiased">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 border-b border-white/40 bg-white/70 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-5">
+      <div class="flex flex-col lg:flex-row justify-between gap-5 lg:items-center">
+
+        <div>
+          <div class="flex gap-2 mb-3 flex-wrap">
+            <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">
+              Evaluation Tool
+            </span>
+            <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-semibold">
+              N×N Matrix
+            </span>
+          </div>
+
+          <h1 class="text-4xl md:text-5xl font-black tracking-tight">
+            Confusion Matrix
+            <span class="bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+              Calculator
+            </span>
+          </h1>
+
+          <p class="mt-3 text-slate-500 max-w-2xl">
+            Generate, visualize and export realistic confusion matrices with metrics,
+            class distributions and instant analysis.
+          </p>
+        </div>
+
+        <button id="themeToggle"
+          class="h-fit px-5 py-3 rounded-2xl bg-white shadow-lg border border-slate-200 hover:shadow-xl transition">
+          <span id="themeIcon">☾</span>
+          <span id="themeLabel"> Switch Mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 md:px-6 py-8 space-y-8">
+
+    <!-- SETUP WIZARD -->
+    <section class="rounded-3xl bg-white shadow-xl border border-slate-200 p-6 md:p-8">
+
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg">
+          01
+        </div>
+        <h2 class="text-2xl font-bold">Setup Parameters</h2>
+      </div>
+
+      <div id="warnings" role="alert"></div>
+
+      <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-5">
+
+        <div>
+          <label class="block text-sm font-semibold mb-2">Number of classes</label>
+          <input type="number" id="numClasses" min="2" max="100" value="3"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none" />
+          <p class="text-xs text-slate-500 mt-1">Between 2 and 100</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-2">Total samples</label>
+          <input type="number" id="totalSamples" min="1" value="300"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-2">Target accuracy %</label>
+          <input type="number" id="accuracy" min="0" max="100" step="0.1" value="92"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-2">Distribution</label>
+          <select id="distType"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
+            <option value="balanced">Balanced</option>
+            <option value="imbalanced">Imbalanced</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Custom -->
+      <div id="customWrap" class="hidden mt-6">
+        <label class="block text-sm font-semibold mb-2">Per-class sample counts</label>
+        <div id="customClasses" class="grid md:grid-cols-3 gap-3"></div>
+        <div id="ccSum" class="mt-4 rounded-xl bg-slate-100 px-4 py-3 text-sm text-slate-600">
+          Sum: 0 / 0
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mt-8">
+        <button id="generateBtn"
+          class="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold shadow-lg hover:scale-[1.02] transition">
+          Generate Matrix
+        </button>
+
+        <button id="randomBtn" class="px-6 py-4 rounded-2xl bg-white border border-slate-300 hover:bg-slate-50">
+          🎲 Randomize
+        </button>
+
+        <button id="resetBtn" class="px-6 py-4 rounded-2xl bg-white border border-slate-300 hover:bg-slate-50">
+          ↺ Reset
+        </button>
+      </div>
+    </section>
+
+    <!-- OUTPUT -->
+    <section id="outputArea" class="rounded-3xl bg-white shadow-xl border border-slate-200 min-h-[500px] p-8">
+      <div class="h-full flex flex-col items-center justify-center text-center py-20">
+        <div class="text-7xl mb-4">⌗</div>
+        <h3 class="text-3xl font-bold mb-3">No matrix yet</h3>
+        <p class="text-slate-500 max-w-md">
+          Set parameters and click <strong>Generate Matrix</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPORT + HISTORY -->
+    <div class="grid lg:grid-cols-2 gap-6">
+
+      <!-- Export -->
+      <section id="exportCard" style="display:none;" class="rounded-3xl bg-white shadow-xl border border-slate-200 p-6">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center font-bold">
+            02
+          </div>
+          <h2 class="text-2xl font-bold">Export</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-5">
+          <button data-export="python" class="rounded-xl bg-slate-100 py-3 hover:bg-slate-200">
+            Python
+          </button>
+          <button data-export="numpy" class="rounded-xl bg-slate-100 py-3 hover:bg-slate-200">
+            NumPy
+          </button>
+          <button data-export="csv" class="rounded-xl bg-slate-100 py-3 hover:bg-slate-200">
+            CSV
+          </button>
+          <button id="copyBtn" class="rounded-xl bg-slate-100 py-3 hover:bg-slate-200">
+            📋 Copy
+          </button>
+          <button id="pngBtn" class="rounded-xl bg-slate-100 py-3 hover:bg-slate-200 col-span-2 md:col-span-1">
+            🖼 Save Image
+          </button>
+        </div>
+
+        <pre id="exportOutput" class="rounded-2xl bg-slate-900 text-green-400 p-4 overflow-auto text-sm">
+// Generate a matrix, then choose a format above.
+      </pre>
+      </section>
+
+      <!-- History -->
+      <section id="historyCard" style="display:none;"
+        class="rounded-3xl bg-white shadow-xl border border-slate-200 p-6">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold">
+            ↺
+          </div>
+          <h2 class="text-2xl font-bold">History</h2>
+        </div>
+
+        <div id="historyList" class="space-y-3"></div>
+      </section>
+    </div>
+
+    <!-- INFO -->
+    <section class="rounded-3xl bg-white shadow-xl border border-slate-200 p-8">
+      <h2 class="text-3xl font-bold mb-4">What this confusion matrix calculator does</h2>
+
+      <p class="text-slate-600 leading-relaxed mb-6">
+        This <strong>confusion matrix calculator</strong> helps you generate a complete
+        <strong>N×N confusion matrix</strong> for binary and multi-class classification problems in
+        <strong>machine learning</strong>, <strong>deep learning</strong>, and data science workflows.
+        By entering the number of classes, total samples, and desired accuracy, the tool automatically
+        creates realistic diagonal (correct predictions) and off-diagonal (misclassifications) values.
+        It also enables detailed evaluation using key <strong>classification metrics</strong> such as
+        <strong>accuracy</strong>, <strong>precision</strong>, <strong>recall (sensitivity)</strong>,
+        <strong>specificity</strong>, and <strong>F1-score</strong>, making it ideal for model performance analysis.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-2xl bg-slate-50 p-5">
+          <h3 class="text-xl font-bold mb-3">Metrics</h3>
+          <ul class="space-y-2 text-slate-600">
+            <li><strong>Precision</strong> — TP / (TP + FP)</li>
+            <li><strong>Recall</strong> — TP / (TP + FN)</li>
+            <li><strong>Specificity</strong> — TN / (TN + FP)</li>
+            <li><strong>F1-score</strong></li>
+            <li><strong>Support</strong></li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl bg-slate-50 p-5">
+          <h3 class="text-xl font-bold mb-3">Features</h3>
+          <ul class="space-y-2 text-slate-600">
+            <li>Editable matrix cells</li>
+            <li>Instant recalculation</li>
+            <li>Python / NumPy / CSV export</li>
+            <li>Save as image</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="rounded-3xl bg-white shadow-xl border border-slate-200 p-8">
+      <h2 class="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+
+      <div class="space-y-4">
+        <details class="rounded-xl bg-slate-50 p-4">
+          <summary class="font-semibold cursor-pointer">What is a confusion matrix?</summary>
+          <p class="mt-3 text-slate-600">
+            An N×N table comparing actual vs predicted classes.
+          </p>
+        </details>
+
+        <details class="rounded-xl bg-slate-50 p-4">
+          <summary class="font-semibold cursor-pointer">Can I edit the generated matrix?</summary>
+          <p class="mt-3 text-slate-600">
+            Yes. Click any matrix cell to edit and recalculate metrics instantly.
+          </p>
+        </details>
+
+        <details class="rounded-xl bg-slate-50 p-4">
+          <summary class="font-semibold cursor-pointer">Can I export the matrix?</summary>
+          <p class="mt-3 text-slate-600">
+            Yes. Export as Python, NumPy, CSV, or image.
+          </p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-slate-500 text-sm py-8">
+    Confusion Matrix Bench — all calculations run locally in your browser. No data leaves your device.
+  </footer>
+
+  <div id="toast" class="fixed bottom-6 right-6"></div>
+</body>
+
+<!-- ============ APP SCRIPTS (loaded in dependency order) ============ -->
+<script src="js/distributions.js" defer></script>
+<script src="js/synthesize.js" defer></script>
+<script src="js/metrics.js" defer></script>
+<script src="js/render.js" defer></script>
+<script src="js/export.js" defer></script>
+<script src="js/ui.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+
+</html>

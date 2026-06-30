@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://confusion-matrix-bench.example.com/sitemap.xml
