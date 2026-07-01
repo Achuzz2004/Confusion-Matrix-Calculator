@@ -1,11 +1,4 @@
-/* ================================================================
-   CUSTOM STYLES
-   Tailwind (via CDN) handles layout, spacing and base utilities.
-   This file defines the theme variables (light/dark) and the
-   handful of component classes (.card, .field, matrix/heatmap
-   cells, buttons) that are reused across many elements and read
-   more clearly as named classes than long utility strings.
-   ================================================================ */
+
 
 :root{
   --bg:            #F6F4EF;
